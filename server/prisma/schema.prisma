@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  parent
+  child
+}
+
+enum Status {
+  pending
+  approved
+  rejected
+}
+
+enum Interval {
+  weekly
+  biweekly
+  monthly
+}
+
+model User {
+  user_id Int @id @default(autoincrement())
+  user_name String
+  role Role
+  email String @unique
+  password_hash String
+  requests Request[]
+  approvals Approval[] @relation("UserApprovals")
+  sentTxns Transaction[] @relation("SentTxns")
+  receivedTxns Transaction[] @relation("ReceivedTxns")
+  standingOrders StandingOrder[]
+}
+
+model Request {
+  request_id Int @id @default(autoincrement())
+  child_user_id Int
+  child User @relation(fields: [child_user_id], references: [user_id])
+  amount Decimal @db.Decimal(10,2)
+  reason String
+  requested_at DateTime @default(now())
+  approval Approval?
+}
+
+model Approval {
+  approval_id Int @id @default(autoincrement())
+  request_id Int @unique
+  request Request @relation(fields: [request_id], references: [request_id])
+  approver_user_id Int
+  approver User @relation("UserApprovals", fields: [approver_user_id], references: [user_id])
+  status Status @default(pending)
+  decided_at DateTime @default(now())
+  transaction Transaction?
+}
+
+model StandingOrder {
+  standing_order_id Int @id @default(autoincrement())
+  child_user_id Int
+  child User @relation(fields: [child_user_id], references: [user_id])
+  amount Decimal  @db.Decimal(10,2)
+  name String
+  interval Interval
+  start_date DateTime
+  is_active Boolean
+  transactions Transaction[]
+}
+
+model Transaction {
+  transaction_id Int @id @default(autoincrement())
+  amount Decimal @db.Decimal(10,2)
+  transacted_at DateTime @default(now())
+  sender_user_id Int  
+  sender User @relation("SentTxns", fields: [sender_user_id], references: [user_id])
+  recipient_user_id Int
+  recipient User @relation("ReceivedTxns", fields: [recipient_user_id], references: [user_id])
+  approval_id Int? @unique
+  approval Approval? @relation(fields: [approval_id], references: [approval_id])
+  standing_order_id  Int?
+  standing_order StandingOrder? @relation(fields: [standing_order_id], references: [standing_order_id])
+}

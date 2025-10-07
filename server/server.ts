@@ -113,6 +113,50 @@ app.post("/approvals/:id", async (req, res) => {
     }
 });
 
+// 全体の履歴取得
+app.get("/transactions", async(req, res) => {
+    try {
+        const transactions = await prisma.transaction.findMany({
+            orderBy: { transacted_at: "desc" }, 
+            include: {
+                sender: { select: { user_name: true, role: true }},
+                recipient: { select: { user_name: true, role: true }},
+                approval: { select: { status: true }},
+            },
+        });
+        res.json(transactions);
+    } catch (error) {
+        handleError(res, error, "全体の履歴取得に失敗したよ～><");
+    }
+});
+
+// 特定ユーザーの履歴取得
+app.get("/transactions/user/:id", async (req, res) => {
+    try {
+        const useId = Number(req.params.id);
+
+        const transactions = await prisma.transaction.findMany({
+            where: {
+                OR: [
+                    { sender_user_id: useId },
+                    { recipient_user_id: useId },
+                ],
+            },
+            orderBy: { transacted_at: "desc" },
+            include: {
+                sender: { select: { user_name: true, role: true } },
+                recipient: { select: { user_name: true, role: true } },
+                approval: { select: { status: true } },
+            },
+        });
+
+        res.json(transactions)
+    } catch (error) {
+        handleError(res, error, "ユーザー別の履歴取得に失敗したよ～><")
+    }
+});
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`サーバー立ち上がったよ～☞ http://localhost:${PORT}`)

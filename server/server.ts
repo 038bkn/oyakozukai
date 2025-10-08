@@ -1,5 +1,5 @@
+import { PrismaClient, type Status } from "@prisma/client";
 import express from "express";
-import { PrismaClient, Status } from "@prisma/client";
 
 const app = express();
 const prisma = new PrismaClient();

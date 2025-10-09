@@ -6,6 +6,7 @@
   --color-text: #565656;
   --color-text-white: #FDFDFD;
   --color-border: #888585;
+  --color-border-light: #E3E3E3;
 
   /* 状態・エリア用 */
   --color-error-area: #F0DFDD;
@@ -27,7 +28,7 @@ body {
 /* 入力フォーム */
 input,
 textarea {
-  @apply border border-[var(--color-border)] rounded-md px-3 py-2 w-full;
+  @apply border border-[var(--color-border-light)] bg-[var(--color-sub-beige)] rounded-md px-3 py-2 w-full;
   color: var(--color-text);
 }
 
@@ -42,7 +43,7 @@ textarea::placeholder {
 }
 
 .card-white {
-  @apply bg-[var(--color-white-area)] rounded-xl p-4 shadow-sm;
+  @apply border border-[var(--color-border)] bg-[var(--color-white-area)] rounded-xl p-4 shadow-sm;
 }
 
 .card-error {

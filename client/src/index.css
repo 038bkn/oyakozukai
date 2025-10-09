@@ -1,1 +1,63 @@
 @import "tailwindcss";
+
+@theme {
+  /* ベース */
+  --color-background: #FCF5EB;
+  --color-text: #565656;
+  --color-text-white: #FDFDFD;
+  --color-border: #888585;
+
+  /* 状態・エリア用 */
+  --color-error-area: #F0DFDD;
+  --color-sub-beige: #F5F3EF;
+  --color-white-area: #FDFDFD;
+  --color-placeholder: #9C9C9C;
+
+  /* ボタン・タブ用 */
+  --color-btn-black: #888585;
+  --color-btn-green: #86A9A8;
+  --color-btn-red: #D58B81;
+  --color-btn-yellow: #FAD48B;
+}
+
+body {
+  @apply bg-[var(--color-background)] text-[var(--color-text)];
+}
+
+/* 入力フォーム */
+input,
+textarea {
+  @apply border border-[var(--color-border)] rounded-md px-3 py-2 w-full;
+  color: var(--color-text);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-placeholder);
+}
+
+/* カード用 */
+.card-beige {
+  @apply bg-[var(--color-sub-beige)] rounded-xl p-4 shadow-sm;
+}
+
+.card-white {
+  @apply bg-[var(--color-white-area)] rounded-xl p-4 shadow-sm;
+}
+
+.card-error {
+  @apply bg-[var(--color-error-area)] rounded-xl p-4 shadow-sm;
+}
+
+/* ボタン用 */
+.btn-black {
+  @apply bg-[var(--color-btn-black)] text-white font-semibold rounded-md py-2 px-4;
+}
+
+.btn-green {
+  @apply bg-[var(--color-btn-green)] text-white font-semibold rounded-md py-2 px-4;
+}
+
+.btn-red {
+  @apply bg-[var(--color-btn-red)] text-white font-semibold rounded-md py-2 px-4;
+}

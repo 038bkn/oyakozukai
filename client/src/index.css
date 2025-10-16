@@ -2,23 +2,23 @@
 
 @theme {
   /* ベース */
-  --color-background: #FCF5EB;
+  --color-background: #fcf5eb;
   --color-text: #565656;
-  --color-text-white: #FDFDFD;
+  --color-text-white: #fdfdfd;
   --color-border: #888585;
-  --color-border-light: #E3E3E3;
+  --color-border-light: #e3e3e3;
 
   /* 状態・エリア用 */
-  --color-error-area: #F0DFDD;
-  --color-sub-beige: #F5F3EF;
-  --color-white-area: #FDFDFD;
-  --color-placeholder: #9C9C9C;
+  --color-error-area: #f0dfdd;
+  --color-sub-beige: #f5f3ef;
+  --color-white-area: #fdfdfd;
+  --color-placeholder: #9c9c9c;
 
   /* ボタン・タブ用 */
   --color-btn-black: #888585;
-  --color-btn-green: #86A9A8;
-  --color-btn-red: #D58B81;
-  --color-btn-yellow: #FAD48B;
+  --color-btn-green: #86a9a8;
+  --color-btn-red: #d58b81;
+  --color-btn-yellow: #fad48b;
 }
 
 body {

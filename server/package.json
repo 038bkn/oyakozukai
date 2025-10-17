@@ -23,9 +23,11 @@
   "homepage": "https://github.com/038bkn/oyakozukai#readme",
   "dependencies": {
     "@prisma/client": "^6.16.2",
+    "cors": "^2.8.5",
     "express": "^5.1.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/node": "^24.6.2",
     "prisma": "^6.16.2",

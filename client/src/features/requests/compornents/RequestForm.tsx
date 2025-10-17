@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createRequest } from "../api/createRequest";
 
 export const RequestForm = () => {
   const [amount, setAmount] = useState("");
@@ -14,9 +15,25 @@ export const RequestForm = () => {
     textarea.style.height = `${textarea.scrollHeight}px`;
   }, [reason]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("申請内容：", { amount, reason });
+
+    try {
+      const data = {
+        child_user_id: 1,
+        amount: Number(amount),
+        reason,
+      };
+
+      const result = await createRequest(data);
+      console.log("送信成功：", result);
+      alert("送信しました！");
+      setAmount("");
+      setReason("");
+    } catch (err) {
+      console.error(err);
+      alert("エラーが発生しました");
+    }
   };
 
   return (

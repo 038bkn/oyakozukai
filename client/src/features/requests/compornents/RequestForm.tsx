@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { createRequest } from "../api/createRequest";
 
 export const RequestForm = () => {
   const [amount, setAmount] = useState("");
   const [reason, setReason] = useState("");
+  const [loading, setLoading] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <reason>
@@ -18,6 +20,17 @@ export const RequestForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!amount || !reason.trim()) {
+      alert("金額と理由を入力してね");
+      return;
+    }
+    if (Number(amount) <= 0) {
+      toast.error("金額は1円以上で入力してね");
+      return;
+    }
+
+    setLoading(true);
+
     try {
       const data = {
         child_user_id: 1,
@@ -25,14 +38,16 @@ export const RequestForm = () => {
         reason,
       };
 
-      const result = await createRequest(data);
-      console.log("送信成功：", result);
-      alert("送信しました！");
+      await createRequest(data);
+
+      toast.success("リクエストを送信しました！");
       setAmount("");
       setReason("");
     } catch (err) {
       console.error(err);
-      alert("エラーが発生しました");
+      toast.error("通信エラーが発生しました");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,8 +73,12 @@ export const RequestForm = () => {
           className="resize-none overflow-hidden"
         />
       </label>
-      <button type="submit" className="btn-green">
-        申請を送信
+      <button
+        type="submit"
+        className={`${loading ? "bg-gray-400 cursor-not-allowed" : "btn-green"}`}
+        disabled={loading}
+      >
+        {loading ? "送信中..." : "送信"}
       </button>
     </form>
   );

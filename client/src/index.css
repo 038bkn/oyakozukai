@@ -2,20 +2,16 @@
 
 @theme {
   /* ベース */
-  --color-background: #fcf5eb;
+  /* --color-background: #f9fafb; */
+  --color-background: #e5e7eb;
   --color-text: #565656;
-  --color-text-white: #fdfdfd;
-  --color-border: #888585;
-  --color-border-light: #e3e3e3;
-
-  /* 状態・エリア用 */
-  --color-error-area: #f0dfdd;
-  --color-sub-beige: #f5f3ef;
-  --color-white-area: #fdfdfd;
-  --color-placeholder: #9c9c9c;
+  --color-text-gray: #9ca3af;
+  --color-white: #fdfdfd;
+  --color-border: #e5e7eb;
+  --color-background-card: #f9fafb;
 
   /* ボタン・タブ用 */
-  --color-btn-black: #888585;
+  --color-btn-black: #9ca3af;
   --color-btn-green: #86a9a8;
   --color-btn-red: #d58b81;
   --color-btn-yellow: #fad48b;
@@ -28,26 +24,22 @@ body {
 /* 入力フォーム */
 input,
 textarea {
-  @apply border border-[var(--color-border-light)] bg-[var(--color-sub-beige)] rounded-md px-3 py-2 w-full;
+  @apply border border-[var(--color-border)] bg-[var(--color-background-card)] rounded-md px-3 py-2 w-full;
   color: var(--color-text);
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: var(--color-placeholder);
+  color: var(--color-text-gray);
 }
 
 /* カード用 */
-.card-beige {
-  @apply bg-[var(--color-sub-beige)] rounded-xl p-4 shadow-sm;
+.card-bg {
+  @apply bg-[var(--color-white)];
 }
 
-.card-white {
-  @apply border border-[var(--color-border)] bg-[var(--color-white-area)] rounded-xl p-4 shadow-sm;
-}
-
-.card-error {
-  @apply bg-[var(--color-error-area)] rounded-xl p-4 shadow-sm;
+.card {
+  @apply border border-[var(--color-border)] bg-[var(--color-background-card)] rounded-xl p-4 shadow-sm;
 }
 
 /* ボタン用 */

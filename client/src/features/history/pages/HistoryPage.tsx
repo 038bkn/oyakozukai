@@ -7,8 +7,6 @@ export const HistoryPage = () => {
   if (loading) return <p>読み込み中・・・</p>;
   if (error) return <p>{error}</p>;
 
-  console.log(data.map((t) => t.id));
-
   return (
     <div>
       <h1>送金履歴</h1>

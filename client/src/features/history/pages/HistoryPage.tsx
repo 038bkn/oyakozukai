@@ -10,11 +10,13 @@ export const HistoryPage = () => {
   return (
     <div>
       <h1>送金履歴</h1>
-      {data.length === 0 ? (
-        <p>履歴がありません</p>
-      ) : (
-        data.map((t) => <TransactionCard key={t.id} transaction={t} />)
-      )}
+      <div className="card-bg">
+        {data.length === 0 ? (
+          <p>履歴がありません</p>
+        ) : (
+          data.map((t) => <TransactionCard key={t.id} transaction={t} />)
+        )}
+      </div>
     </div>
   );
 };

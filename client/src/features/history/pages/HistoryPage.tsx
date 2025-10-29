@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Header } from "../../../app/layout/Header";
 import type { Filters } from "../components/HistoryFilter";
 import { HistoryFilter } from "../components/HistoryFilter";
 import { TransactionCard } from "../components/TransactionCard";
@@ -18,16 +19,18 @@ export const HistoryPage = () => {
   });
 
   return (
-    <div className="max-w-xs mx-auto">
-      <h1>送金履歴</h1>
-      <HistoryFilter filters={filters} onFilterChange={setFilters} />
-      <div className="card-bg text-gray-500 text-sm">
-        {filtered.length === 0 ? (
-          <p>履歴がありません</p>
-        ) : (
-          filtered.map((t) => <TransactionCard key={t.id} transaction={t} />)
-        )}
+    <>
+      <Header title="送金履歴" back />
+      <div className="max-w-xs mx-auto pt-5">
+        <HistoryFilter filters={filters} onFilterChange={setFilters} />
+        <div className="card-bg text-gray-500 text-sm">
+          {filtered.length === 0 ? (
+            <p>履歴がありません</p>
+          ) : (
+            filtered.map((t) => <TransactionCard key={t.id} transaction={t} />)
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };

@@ -13,11 +13,7 @@ export const TransactionCard = ({ transaction }: { transaction: Transaction }) =
   const { user_name, amount, reason, date, txnStatus } = transaction;
 
   const statusBadge =
-    txnStatus === "pending"
-      ? "bg-yellow-100 text-yellow-800"
-      : txnStatus === "approved"
-        ? "bg-green-100 text-green-800"
-        : "bg-red-100 text-red-800";
+    txnStatus === "pending" ? "btn-yellow" : txnStatus === "approved" ? "btn-green" : "btn-red";
 
   const formatDate = (date: string | Date) => {
     return format(new Date(date), "yyyy-MM-dd");
@@ -28,8 +24,8 @@ export const TransactionCard = ({ transaction }: { transaction: Transaction }) =
       <div className="flex justify-between mb-2">
         <div className="flex items-center gap-2">
           <p className="font-semibold">{user_name}</p>
-          <span className="text-xs px-2 py-0.5 rounded-full bg-gray-200 text-gray-700">申請</span>
-          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusBadge}`}>
+          <span className="text-xs px-2 py-0.5 rounded-md font-medium btn-black">申請</span>
+          <span className={`text-xs px-2 py-0.5 rounded-md font-medium ${statusBadge}`}>
             {txnStatus === "pending" ? "承認待ち" : txnStatus === "approved" ? "送金済み" : "却下"}
           </span>
         </div>

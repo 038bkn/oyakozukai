@@ -33,24 +33,33 @@ textarea::placeholder {
   color: var(--color-text-gray);
 }
 
+.icon {
+  @apply w-5 h-5;
+}
+
 /* カード用 */
 .card-bg {
-  @apply bg-[var(--color-white)];
+  @apply border bg-[var(--color-white)] border-[var(--color-border)] rounded-xl p-4 mb-4 shadow-sm;
 }
 
 .card {
-  @apply border border-[var(--color-border)] bg-[var(--color-background-card)] rounded-xl p-4 shadow-sm;
+  @apply border border-[var(--color-border)] bg-[var(--color-background-card)] shadow-sm;
+  /* @apply border border-[var(--color-border)] bg-[var(--color-background-card)] rounded-xl p-4 shadow-sm; */
 }
 
 /* ボタン用 */
 .btn-black {
-  @apply bg-[var(--color-btn-black)] text-white font-semibold rounded-md py-2 px-4;
+  @apply border bg-[var(--color-btn-black)] text-[var(--color-white)];
 }
 
 .btn-green {
-  @apply bg-[var(--color-btn-green)] text-white font-semibold rounded-md py-2 px-4;
+  @apply bg-[var(--color-btn-green)] text-white;
 }
 
 .btn-red {
-  @apply bg-[var(--color-btn-red)] text-white font-semibold rounded-md py-2 px-4;
+  @apply bg-[var(--color-btn-red)] text-white;
+}
+
+.btn-yellow {
+  @apply bg-[var(--color-btn-yellow)] text-[var(--color-text)];
 }

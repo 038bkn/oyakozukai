@@ -1,3 +1,4 @@
+import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { createRequest } from "../api/createRequest";
@@ -54,12 +55,13 @@ export const RequestForm = () => {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <label className="flex flex-col gap-1">
-        <span className="text-sm font-semibold text-[valr(--color-text)">金額(円)</span>
+        <span className="text-sm font-semibold">金額(円)</span>
         <input
           type="number"
           placeholder="例：500"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
+          className="card"
         />
       </label>
 
@@ -70,14 +72,15 @@ export const RequestForm = () => {
           placeholder="例：友達とカフェに行きたい"
           value={reason}
           onChange={(e) => setReason(e.target.value)}
-          className="resize-none overflow-hidden"
+          className="resize-none overflow-hidden card"
         />
       </label>
       <button
         type="submit"
-        className={`${loading ? "bg-gray-400 cursor-not-allowed" : "btn-green"}`}
+        className={`${loading ? "cursor-not-allowed" : "btn-green"} flex justify-center gap-2 items-center rounded-full h-8`}
         disabled={loading}
       >
+        <PaperAirplaneIcon className="w-5 h-5" />
         {loading ? "送信中..." : "送信"}
       </button>
     </form>

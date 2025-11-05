@@ -39,44 +39,57 @@ export const ParentHome = () => {
   if (error || txError) return <p>{error ?? txError}</p>;
 
   const pendingRequests = requests.filter((r) => r.approval === null).slice(0, 3);
+  const latestTransaction = transactions.slice(0, 3);
 
   return (
     <>
       <Header title="ホーム" />
       <div className="p-4 space-y-6">
         {/* 申請確認 */}
-        <section className="card py-3">
-          <div className="flex justify-between items-center mb-2 mx-2">
+        <section className="card p-3">
+          <div className="flex justify-between items-center mb-2">
             <h2 className="font-semibold">
               申請確認
-              <span className="text-sm text-gray-500 card mx-3">{pendingRequests.length}件</span>
+              <span className="text-sm text-gray-500 card mx-2 px-1">
+                {pendingRequests.length}件
+              </span>
             </h2>
             <button type="button" className="text-sm text-gray-500">
               一覧 →
             </button>
           </div>
           <div className="space-y-2">
-            {pendingRequests.map((req) => (
-              <div key={req.request_id} className="scale-90 text-sm">
-                <ApprovalCard request={req} onApprove={handleApprove} onReject={handleReject} />
-              </div>
-            ))}
+            {pendingRequests.length === 0 ? (
+              <p className="text-gray-500 text-sm">現在、未対応の申請はありません。</p>
+            ) : (
+              pendingRequests.map((req) => (
+                <div key={req.request_id} className="scale-90 text-sm">
+                  <ApprovalCard request={req} onApprove={handleApprove} onReject={handleReject} />
+                </div>
+              ))
+            )}
           </div>
         </section>
 
         {/* 送金履歴 */}
-        <section className="card py-3">
-          <div className="flex justify-between items-center mb-2 mx-3">
+        <section className="card p-3">
+          <div className="flex justify-between items-center mb-2">
             <h2 className="font-semibold">送金履歴</h2>
             <button type="button" className="text-sm text-gray-500">
               一覧 →
             </button>
           </div>
-          {transactions.map((t: Transaction) => (
-            <div key={t.id} className="scale-90">
-              <TransactionCard transaction={t} />
-            </div>
-          ))}
+          <div className="space-y-2">
+            {latestTransaction.length === 0 ? (
+              <p className="text-gray-500 text-sm">まだ履歴がありません</p>
+            ) : (
+              latestTransaction.map((t: Transaction) => (
+                <div key={t.id} className="scale-90">
+                  <TransactionCard transaction={t} />
+                </div>
+              ))
+            )}
+          </div>
         </section>
       </div>
     </>

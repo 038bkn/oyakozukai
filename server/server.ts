@@ -67,7 +67,9 @@ app.get("/requests", async (req, res) => {
         child: {
           select: { user_name: true },
         },
-        approval: true,
+        approval: {
+          select: { status: true },
+        },
       },
     });
     res.json(requests);
@@ -128,9 +130,19 @@ app.get("/transactions", async (req, res) => {
         sender: { select: { user_name: true, role: true } },
         recipient: { select: { user_name: true, role: true } },
         approval: { select: { status: true } },
+        request: { select: { reason: true } },
       },
     });
-    res.json(transactions);
+
+    const formatted = transactions.map((t) => ({
+      id: t.transaction_id,
+      amount: t.amount,
+      reason: t.request?.reason ?? "",
+      date: t.transacted_at,
+      status: t.approval?.status ?? "pending",
+      user_name: t.recipient?.user_name ?? "不明",
+    }));
+    res.json(formatted);
   } catch (error) {
     handleError(res, error, "全体の履歴取得に失敗したよ～><");
   }

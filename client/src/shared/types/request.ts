@@ -4,7 +4,7 @@ export interface Request {
   reason: string;
   request_at: string;
   approval: {
-    status: "pending" | "approved" | "rejected";
+    status: "pending" | "approved" | null;
   };
   child: {
     user_name: string;

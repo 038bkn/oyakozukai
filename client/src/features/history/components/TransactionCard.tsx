@@ -4,7 +4,7 @@ export interface Transaction {
   id: number;
   user_name: string;
   amount: number;
-  reason: string;
+  reason?: string;
   date: string;
   txnStatus: "pending" | "approved" | "rejected";
 }

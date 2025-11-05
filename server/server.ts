@@ -67,7 +67,9 @@ app.get("/requests", async (req, res) => {
         child: {
           select: { user_name: true },
         },
-        approval: true,
+        approval: {
+          select: { status: true },
+        },
       },
     });
     res.json(requests);

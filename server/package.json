@@ -2,25 +2,15 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "ts-node-dev --respawn --transpile-only server.ts",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "seed": "ts-node prisma/seed.ts",
-    "start": "ts-node server.ts",
-    "dev": "ts-node-dev --respawn --transpile-only server.ts"
+    "seed": "ts-node prisma/seed.ts"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/038bkn/oyakozukai.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/038bkn/oyakozukai/issues"
-  },
-  "homepage": "https://github.com/038bkn/oyakozukai#readme",
   "dependencies": {
     "@prisma/client": "^6.16.2",
     "cors": "^2.8.5",

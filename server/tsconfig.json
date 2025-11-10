@@ -6,7 +6,10 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["node"]
+    "types": ["node"],
+    "outDir": "../dist", // distは1つ上の階層に出す
+    "rootDir": "." // このフォルダ(server/)をルートとして扱う
   },
-  "include": ["./**/*.ts"]
+  "include": ["**/*.ts"], // ← server配下すべて
+  "exclude": ["../dist"] // 生成物を除外
 }

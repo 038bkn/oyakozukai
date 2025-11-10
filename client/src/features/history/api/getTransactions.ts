@@ -1,5 +1,10 @@
-export const getTransactions = async () => {
-  const res = await fetch("http://localhost:3000/transactions");
-  if (!res.ok) throw new Error("履歴の取得に失敗しました");
-  return res.json();
-};
+import { apiFetch } from "../../../shared/api/fetcher";
+import type { Transaction } from "../../../shared/types/transaction";
+
+export async function getTransactions(): Promise<Transaction[]> {
+  const data = await apiFetch<Transaction[]>("http://localhost:3000/transactions");
+  return data.map((t) => ({
+    ...t,
+    amount: Number(t.amount),
+  }));
+}

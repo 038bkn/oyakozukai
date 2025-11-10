@@ -1,19 +1,13 @@
-export const createRequest = async (data: {
+import { apiFetch } from "../../../shared/api/fetcher";
+import type { Request } from "../../../shared/types/request";
+
+export async function createRequest(input: {
   child_user_id: number;
   amount: number;
   reason: string;
-}) => {
-  const res = await fetch("http://localhost:3000/requests", {
+}): Promise<Request> {
+  return await apiFetch<Request>("http://localhost:3000/requests", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
+    body: JSON.stringify(input),
   });
-
-  if (!res.ok) {
-    throw new Error("");
-  }
-
-  return res.json();
-};
+}

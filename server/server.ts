@@ -111,6 +111,32 @@ app.get("/requests/child/:childId", async (req, res) => {
 });
 
 //
+// 対応待ちのリクエスト一覧
+//
+app.get("/requests/pending", async (_req, res) => {
+  try {
+    const pendingRequests = await prisma.request.findMany({
+      where: {
+        approval: null,
+      },
+      include: {
+        child: { select: { user_id: true, user_name: true } },
+      },
+      orderBy: { requested_at: "desc" },
+    });
+
+    const normalized = pendingRequests.map((r) => ({
+      ...r,
+      amount: Number(r.amount),
+    }));
+
+    res.json(normalized);
+  } catch (error) {
+    handleError(res, error, "未対応のリクエスト一覧の取得に失敗したよ～><");
+  }
+});
+
+//
 // リクエストの承認・却下
 //
 app.post("/approvals/:id", async (req, res) => {

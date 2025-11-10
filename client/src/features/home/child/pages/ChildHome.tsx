@@ -14,6 +14,7 @@ export const ChildHome = () => {
   if (loading) return <p>読み込み中...</p>;
   if (error) return <p>{error}</p>;
 
+  const pendingRequests = requests.filter((r) => r.approval === null).slice(0, 3);
   const latestTransaction = transactions.slice(0, 3);
 
   return (
@@ -22,20 +23,31 @@ export const ChildHome = () => {
       <div className="p-4 space-y-6">
         {/* <BalanceCard balance={balance} /> */}
 
+        {/* 対応待ちの申請 */}
         <section className="card p-3">
           <div className="flex justify-between items-center mb-2">
-            <h2 className="font-semibold">申請状況</h2>
-            <button
+            <h2 className="font-semibold">
+              対応待ちの申請
+              <span className="text-sm text-gray-500 card mx-2 px-1">
+                全{requests.filter((r) => r.approval === null).length}件
+              </span>
+            </h2>
+            {/* <button
               type="button"
-              onClick={() => navigate("/requests")}
+              onClick={() => navigate("/request")}
               className="text-sm text-gray-500 hover:underline"
             >
               一覧 →
-            </button>
+            </button> */}
           </div>
-          <RequestStatusList requests={requests} />
+          {pendingRequests.length === 0 ? (
+            <p className="text-gray-500 text-sm">現在対応待ちの申請はありません。</p>
+          ) : (
+            <RequestStatusList requests={pendingRequests} />
+          )}
         </section>
 
+        {/* 履歴 */}
         <section className="card p-3">
           <div className="flex justify-between items-center mb-2">
             <h2 className="font-semibold">履歴</h2>
@@ -64,7 +76,7 @@ export const ChildHome = () => {
         <div className="pt-4">
           <button
             type="button"
-            onClick={() => navigate("/request/new")}
+            onClick={() => navigate("/request")}
             className="w-full btn-green text-white font-semibold py-3 rounded-lg shadow"
           >
             おこづかいを申請する

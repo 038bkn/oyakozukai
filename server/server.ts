@@ -273,7 +273,7 @@ app.get("/transactions/child/:childId", async (req, res) => {
 // --- サーバー起動 -------------------------------------------------
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`サーバー立ち上がったよ～☞ http://localhost:${PORT}`);
+  console.log(`サーバー立ち上がったよ～☞ Port:${PORT}`);
 });
 
 process.on("SIGINT", async () => {

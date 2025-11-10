@@ -6,7 +6,7 @@
     "lint": "biome lint .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
-    "build": "npx prisma generate && npx tsc -p server/tsconfig.json",
+    "build": "npx prisma generate --schema=server/prisma/schema.prisma && npx tsc -p server/tsconfig.json",
     "start": "node dist/server.js",
     "dev": "cd server && ts-node-dev --respawn --transpile-only server.ts"
   },

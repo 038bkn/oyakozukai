@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../../../app/layout/Header";
 import { ApprovalCard } from "../../approvals/components/ApprovalCard";
 import { useApprovals } from "../../approvals/hooks/useApprovals";
@@ -6,18 +7,12 @@ import { getTransactions } from "../../history/api/getTransactions";
 import { type Transaction, TransactionCard } from "../../history/components/TransactionCard";
 
 export const ParentHome = () => {
+  const navigate = useNavigate();
+
   const { data: requests, loading, error, handleApprove, handleReject } = useApprovals();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [txLoading, setTxLoading] = useState(true);
   const [txError, setTxError] = useState<string | null>(null);
-
-  // useEffect(() => {
-  //   setTransactions([
-  //     { id: 1, user_name: "コジコジ", amount: 1000, date: "2025-07-05", txnStatus: "pending" },
-  //     { id: 2, user_name: "ジョニー", amount: 800, date: "2025-07-02", txnStatus: "rejected" },
-  //     { id: 3, user_name: "コジコジ", amount: 1000, date: "2025-07-05", txnStatus: "approved" },
-  //   ]);
-  // }, []);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -54,7 +49,11 @@ export const ParentHome = () => {
                 全{requests.filter((r) => r.approval === null).length}件
               </span>
             </h2>
-            <button type="button" className="text-sm text-gray-500">
+            <button
+              type="button"
+              onClick={() => navigate("/approvals")}
+              className="text-sm text-gray-500"
+            >
               一覧 →
             </button>
           </div>
@@ -75,7 +74,11 @@ export const ParentHome = () => {
         <section className="card p-3">
           <div className="flex justify-between items-center mb-2">
             <h2 className="font-semibold">送金履歴</h2>
-            <button type="button" className="text-sm text-gray-500">
+            <button
+              type="button"
+              onClick={() => navigate("/history")}
+              className="text-sm text-gray-500"
+            >
               一覧 →
             </button>
           </div>

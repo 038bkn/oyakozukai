@@ -51,7 +51,7 @@ export const ParentHome = () => {
             <h2 className="font-semibold">
               申請確認
               <span className="text-sm text-gray-500 card mx-2 px-1">
-                {pendingRequests.length}件
+                全{requests.filter((r) => r.approval === null).length}件
               </span>
             </h2>
             <button type="button" className="text-sm text-gray-500">

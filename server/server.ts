@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 app.use(
   cors({
     origin: [
-    "https://oyakozukai-fc2v0vaxg-038bkns-projects.vercel.app/",
+    "https://oyakozukai-fc2v0vaxg-038bkns-projects.vercel.app",
     "http://localhost:5173"
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],

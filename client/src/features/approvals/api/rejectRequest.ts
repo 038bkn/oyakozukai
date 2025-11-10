@@ -1,4 +1,5 @@
 import { apiFetch } from "../../../shared/api/fetcher";
+import { API_BASE_URL } from "../../../shared/apiBase";
 import type { ApprovalResponse } from "../../../shared/types/approval";
 
 export async function rejectRequest(requestId: number, approverId = 1): Promise<ApprovalResponse> {

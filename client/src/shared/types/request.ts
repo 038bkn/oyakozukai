@@ -8,5 +8,8 @@ export type Request = {
   reason: string;
   requested_at: string;
   approval?: Approval | null;
+  child?: {
+    user_name: string;
+  } | null;
   transaction?: Transaction | null;
 };

@@ -13,3 +13,8 @@ export type Approval = {
   approver?: Pick<User, "user_name" | "user_id"> | null;
   transaction?: Transaction | null;
 };
+
+export interface ApprovalResponse {
+  approval: Approval;
+  transaction: Transaction;
+}

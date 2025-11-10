@@ -1,12 +1,12 @@
-export interface Request {
+import type { Approval } from "./approval";
+import type { Transaction } from "./transaction";
+
+export type Request = {
   request_id: number;
+  child_user_id: number;
   amount: number;
   reason: string;
-  request_at: string;
-  approval: {
-    status: "pending" | "approved" | null;
-  };
-  child: {
-    user_name: string;
-  };
-}
+  requested_at: string;
+  approval?: Approval | null;
+  transaction?: Transaction | null;
+};

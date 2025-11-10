@@ -1,44 +1,23 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Header } from "../../../app/layout/Header";
-import { ApprovalCard } from "../../approvals/components/ApprovalCard";
-import { useApprovals } from "../../approvals/hooks/useApprovals";
-import { getTransactions } from "../../history/api/getTransactions";
-import { type Transaction, TransactionCard } from "../../history/components/TransactionCard";
+import { Header } from "../../../../app/layout/Header";
+import type { Transaction } from "../../../../shared/types/transaction";
+import { ApprovalCard } from "../../../approvals/components/ApprovalCard";
+import { TransactionCard } from "../../../history/components/TransactionCard";
+import { useParentHome } from "../hooks/useParentHome";
 
 export const ParentHome = () => {
   const navigate = useNavigate();
+  const { requests, transactions, loading, error, handleApprove, handleReject } = useParentHome();
 
-  const { data: requests, loading, error, handleApprove, handleReject } = useApprovals();
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [txLoading, setTxLoading] = useState(true);
-  const [txError, setTxError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const data = await getTransactions();
-        setTransactions(data);
-      } catch (err) {
-        console.error(err);
-        setTxError("送金履歴の取得に失敗しました");
-      } finally {
-        setTxLoading(false);
-      }
-    };
-
-    fetchTransactions();
-  });
-
-  if (loading || txLoading) return <p>読み込み中...</p>;
-  if (error || txError) return <p>{error ?? txError}</p>;
+  if (loading) return <p>読み込み中...</p>;
+  if (error) return <p>{error}</p>;
 
   const pendingRequests = requests.filter((r) => r.approval === null).slice(0, 3);
   const latestTransaction = transactions.slice(0, 3);
 
   return (
     <>
-      <Header title="ホーム" />
+      <Header title="親ホーム" />
       <div className="p-4 space-y-6">
         {/* 申請確認 */}
         <section className="card p-3">
@@ -52,11 +31,12 @@ export const ParentHome = () => {
             <button
               type="button"
               onClick={() => navigate("/approvals")}
-              className="text-sm text-gray-500"
+              className="text-sm text-gray-500 hover:underline"
             >
               一覧 →
             </button>
           </div>
+
           <div className="space-y-2">
             {pendingRequests.length === 0 ? (
               <p className="text-gray-500 text-sm">現在、未対応の申請はありません。</p>
@@ -73,21 +53,22 @@ export const ParentHome = () => {
         {/* 送金履歴 */}
         <section className="card p-3">
           <div className="flex justify-between items-center mb-2">
-            <h2 className="font-semibold">送金履歴</h2>
+            <h2 className="font-semibold">履歴</h2>
             <button
               type="button"
               onClick={() => navigate("/history")}
-              className="text-sm text-gray-500"
+              className="text-sm text-gray-500 hover:underline"
             >
               一覧 →
             </button>
           </div>
+
           <div className="space-y-2">
             {latestTransaction.length === 0 ? (
-              <p className="text-gray-500 text-sm">まだ履歴がありません</p>
+              <p className="text-gray-500 text-sm">まだ履歴がありません。</p>
             ) : (
               latestTransaction.map((t: Transaction) => (
-                <div key={t.id} className="scale-90">
+                <div key={t.transaction_id} className="scale-90">
                   <TransactionCard transaction={t} />
                 </div>
               ))
